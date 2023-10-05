@@ -1,8 +1,6 @@
 package com.jama.soddatalim.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jama.soddatalim.R
@@ -19,22 +17,18 @@ class LessonAdapter : RecyclerView.Adapter<LessonAdapter.LoadVh>(){
         notifyDataSetChanged()
     }
     inner class LoadVh(var binding: ItemLessonBinding): RecyclerView.ViewHolder(binding.root){
-        @SuppressLint("ResourceAsColor")
         fun onBind(data:Lesson){
             binding.numberLesson.text =data.numberLesson.toString() + " Mashg'ulot"
             binding.description.text = data.name
             when(data.isFinished){
                 1->{
                     binding.iconLesson.setImageResource(R.drawable.green_lesson)
-                    binding.layoutLesson.setBackgroundColor(R.color.green)
                 }
                 2->{
                     binding.iconLesson.setImageResource(R.drawable.orange_lesson)
-                    binding.layoutLesson.setBackgroundColor(R.color.orange)
                 }
                 0->{
                     binding.iconLesson.setImageResource(R.drawable.pink_lesson)
-                    binding.layoutLesson.setBackgroundColor(R.color.pink)
                 }
             }
             val topicAdapter = MultipleViewAdapter(data.topicList.reversed())
