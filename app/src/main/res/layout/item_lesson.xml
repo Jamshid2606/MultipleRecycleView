@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_nested"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/layoutLesson"
+        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutLesson"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:background="#52E73A">
+
+        <TextView
+            android:id="@+id/numberLesson"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="10dp"
+            android:text="1 Mashg'ulot"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            app:layout_constraintTop_toBottomOf="@+id/numberLesson"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="10dp"
+            android:text="Describing abstract objects"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:fontFamily="@font/nunito_bold"
+            android:textColor="@color/black"
+            />
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/iconLesson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/green_lesson"
+            android:layout_marginEnd="10dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
