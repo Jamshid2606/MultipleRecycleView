@@ -5,4 +5,7 @@
     <color name="orange">#FFD700</color>
     <color name="green">#008000</color>
     <color name="pink">#FF1493</color>
+    <color name="greenLayout">#52E73A</color>
+    <color name="orangeLayout">#FCBF1E</color>
+    <color name="pinkLayout">#FF636A</color>
 </resources>

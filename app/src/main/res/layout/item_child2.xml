@@ -9,7 +9,7 @@
         android:layout_height="120dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/current_topic"
+        android:src="@drawable/current_topic1"
         app:layout_constraintTop_toTopOf="parent"/>
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:visibility="gone"
@@ -20,5 +20,31 @@
         app:layout_constraintStart_toStartOf="@id/iconLesson"
         app:layout_constraintEnd_toEndOf="@id/iconLesson"
         android:src="@drawable/start_topic"
+        />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/startIconText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/startIcon"
+        app:layout_constraintBottom_toBottomOf="@id/startIcon"
+        app:layout_constraintEnd_toEndOf="@id/startIcon"
+        app:layout_constraintStart_toStartOf="@id/startIcon"
+        android:text="Start"
+        android:fontFamily="@font/nunito_bold"
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"
+        />
+    <TextView
+        android:id="@+id/currentTopicTXT"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iconLesson"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/nunito_bold"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

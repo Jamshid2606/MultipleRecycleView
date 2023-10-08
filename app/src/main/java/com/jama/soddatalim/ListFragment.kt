@@ -13,6 +13,8 @@ class ListFragment : BaseFragment<FragmentListBinding>(FragmentListBinding::infl
     override fun onViewCreate() {
         adddata()
         binding.list.adapter = adapter
+        binding.list.setHasFixedSize(true)
+        binding.list.setItemViewCacheSize(20)
         adapter.addAll(listLesson.reversed())
         binding.list.scrollToPosition(listLesson.size-1)
     }

@@ -30,9 +30,9 @@ class MultipleViewAdapter(private val list:List<Topic>):RecyclerView.Adapter<Rec
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         return when(list[position].viewType){
-            FIRSTVIEW->(holder as FirstViewHolder).bind(list[position])
-            SECONDVIEW->(holder as SecondViewHolder).bind(list[position])
-            THIRDVIEW->(holder as ThirdViewHolder).bind(list[position])
+            FIRSTVIEW->(holder as FirstViewHolder).bind(list[position], list.size-position)
+            SECONDVIEW->(holder as SecondViewHolder).bind(list[position], list.size-position)
+            THIRDVIEW->(holder as ThirdViewHolder).bind(list[position], list.size-position)
             else->throw IllegalArgumentException("invalid item type")
         }
     }
