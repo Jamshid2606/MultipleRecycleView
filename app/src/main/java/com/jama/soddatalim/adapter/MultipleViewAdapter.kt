@@ -2,19 +2,31 @@ package com.jama.soddatalim.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.jama.soddatalim.adapter.diffUtil.MyLessonDiffUtil
+import com.jama.soddatalim.adapter.diffUtil.MyTopicDiffUtil
 import com.jama.soddatalim.databinding.ItemChild1Binding
 import com.jama.soddatalim.databinding.ItemChild2Binding
 import com.jama.soddatalim.databinding.ItemChild3Binding
+import com.jama.soddatalim.model.Lesson
 import com.jama.soddatalim.model.Topic
 import java.lang.IllegalArgumentException
 
-class MultipleViewAdapter(private val list:List<Topic>):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MultipleViewAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var oldTopicList = emptyList<Topic>()
+    fun addAll(newLessonList: List<Topic>) {
+        val diffUtil = MyTopicDiffUtil(oldTopicList, newLessonList)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        oldTopicList = newLessonList
+        diffResults.dispatchUpdatesTo(this)
+    }
     companion object{
         const val FIRSTVIEW = 1
         const val SECONDVIEW = 2
         const val THIRDVIEW = 3
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
             FIRSTVIEW->FirstViewHolder(ItemChild1Binding.inflate(LayoutInflater.from(parent.context), parent, false ))
@@ -25,19 +37,19 @@ class MultipleViewAdapter(private val list:List<Topic>):RecyclerView.Adapter<Rec
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return oldTopicList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        return when(list[position].viewType){
-            FIRSTVIEW->(holder as FirstViewHolder).bind(list[position], list.size-position)
-            SECONDVIEW->(holder as SecondViewHolder).bind(list[position], list.size-position)
-            THIRDVIEW->(holder as ThirdViewHolder).bind(list[position], list.size-position)
+        return when(oldTopicList[position].viewType){
+            FIRSTVIEW->(holder as FirstViewHolder).bind(oldTopicList[position], oldTopicList.size-position)
+            SECONDVIEW->(holder as SecondViewHolder).bind(oldTopicList[position], oldTopicList.size-position)
+            THIRDVIEW->(holder as ThirdViewHolder).bind(oldTopicList[position], oldTopicList.size-position)
             else->throw IllegalArgumentException("invalid item type")
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return list[position].viewType
+        return oldTopicList[position].viewType
     }
 }

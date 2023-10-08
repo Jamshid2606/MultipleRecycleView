@@ -1,29 +1,34 @@
 package com.jama.soddatalim.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.jama.soddatalim.R
+import com.jama.soddatalim.adapter.diffUtil.MyLessonDiffUtil
 import com.jama.soddatalim.databinding.ItemLessonBinding
 import com.jama.soddatalim.model.Lesson
 
 class LessonAdapter : RecyclerView.Adapter<LessonAdapter.LoadVh>(){
-    private var lessonList = ArrayList<Lesson>()
-    fun addAll(list: List<Lesson>) {
-        val oldSize = lessonList.size
-        lessonList.addAll(list)
-        notifyItemRangeInserted(oldSize, list.size)
+    private var oldlessonList = emptyList<Lesson>()
+    fun addAll(newLessonList: List<Lesson>) {
+        val diffUtil = MyLessonDiffUtil(oldlessonList, newLessonList)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        oldlessonList = newLessonList
+        diffResults.dispatchUpdatesTo(this)
     }
     inner class LoadVh(var binding: ItemLessonBinding): RecyclerView.ViewHolder(binding.root){
-        @SuppressLint("ResourceAsColor")
         fun onBind(data:Lesson){
-            binding.numberLesson.text = "${data.numberLesson} Mashg'ulot"
-            binding.description.text = data.name
-            binding.iconLesson.setOnClickListener {
-                //invoke
+            val topicAdapter = MultipleViewAdapter()
+            topicAdapter.addAll(data.topicList)
+            binding.apply {
+                listNested.adapter = topicAdapter
+                numberLesson.text = "${data.numberLesson} Mashg'ulot"
+                description.text = data.name
             }
+//            binding.iconLesson.setOnClickListener {
+//                //invoke
+//            }
             when(data.isFinished){
                 1->{
                     binding.layoutLesson.setBackgroundResource(R.color.greenLayout)
@@ -41,8 +46,6 @@ class LessonAdapter : RecyclerView.Adapter<LessonAdapter.LoadVh>(){
                     binding.iconLesson2.setImageResource(R.drawable.pink_bg)
                 }
             }
-            val topicAdapter = MultipleViewAdapter(data.topicList.reversed())
-            binding.listNested.adapter = topicAdapter
         }
     }
 
@@ -51,10 +54,10 @@ class LessonAdapter : RecyclerView.Adapter<LessonAdapter.LoadVh>(){
         return LoadVh(binding)
     }
 
-    override fun getItemCount(): Int = lessonList.size
+    override fun getItemCount(): Int = oldlessonList.size
 
     override fun onBindViewHolder(holder: LoadVh, position: Int) {
         val dataVh = holder as LoadVh
-        dataVh.onBind(lessonList[position])
+        dataVh.onBind(oldlessonList[position])
     }
 }

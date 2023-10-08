@@ -12,11 +12,14 @@ class ListFragment : BaseFragment<FragmentListBinding>(FragmentListBinding::infl
     private var listLesson = ArrayList<Lesson>()
     override fun onViewCreate() {
         adddata()
-        binding.list.adapter = adapter
-        binding.list.setHasFixedSize(true)
-        binding.list.setItemViewCacheSize(20)
-        adapter.addAll(listLesson.reversed())
-        binding.list.scrollToPosition(listLesson.size-1)
+        binding.apply {
+            list.adapter = adapter
+            list.setHasFixedSize(true)
+            list.setItemViewCacheSize(20)
+            adapter.addAll(listLesson.reversed())
+            list.scrollToPosition(listLesson.size-1)
+        }
+
     }
     fun adddata() {
         val topicList1 = ArrayList<Topic>()
@@ -36,14 +39,14 @@ class ListFragment : BaseFragment<FragmentListBinding>(FragmentListBinding::infl
         topicList2.add(Topic(2, "", "", 0))
         topicList2.add(Topic(3, "", "", 0))
         topicList2.add(Topic(2, "", "", 0))
-        topicList2.add(Topic(1, "", "", 0))
+        topicList2.add(Topic(1, "", "", 2))
         topicList3.add(Topic(1, "", "", 0))
         topicList3.add(Topic(2, "", "", 0))
         topicList3.add(Topic(3, "", "", 0))
         topicList3.add(Topic(2, "", "", 0))
         topicList3.add(Topic(1, "", "", 0))
         topicList3.add(Topic(2, "", "", 0))
-        topicList3.add(Topic(3, "", "", 0))
+        topicList3.add(Topic(3, "", "", 2))
         topicList3.add(Topic(2, "", "", 0))
         topicList3.add(Topic(1, "", "", 0))
         topicList3.add(Topic(2, "", "", 0))
